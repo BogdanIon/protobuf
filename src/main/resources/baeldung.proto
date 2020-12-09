@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package baeldung;
+
+option java_package = "com.baeldung.protobuf";
+option java_outer_classname = "BaeldungTraining";
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/any.proto";
+
+message Course {
+	int32 id = 1;
+	string course_name = 2;
+	NullableString course_author = 3;
+	repeated Student student = 4;
+	google.protobuf.StringValue course_assistant = 5;
+	repeated ComplexObject complexObject = 6;
+}
+
+message ComplexObject {
+	google.protobuf.Struct struct = 1;
+	google.protobuf.Any any = 2;
+	map<string, string> map = 3;
+}
+
+message NullableString {
+	oneof kind {
+		google.protobuf.NullValue null = 1;
+		string data = 2;
+	}
+}
+
+message Student {
+	int32 id = 1;
+	string first_name = 2;
+	string last_name = 3;
+	string email = 4;
+	repeated PhoneNumber phone = 5;
+
+	message PhoneNumber {
+		string number = 1;
+		PhoneType type = 2;
+	}
+
+	enum PhoneType {
+		MOBILE = 0;
+		LANDLINE = 1;
+	}
+}
